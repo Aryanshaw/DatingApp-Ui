@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-'use strict';
+
 import {
   StyleSheet,
   Text,
