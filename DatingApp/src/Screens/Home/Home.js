@@ -64,14 +64,24 @@ const Home = () => {
   };
 
   const swipe = dir => {
+    // Filter out cards that have already been removed
     const cardsLeft = characters.filter(
       person => !alreadyRemoved.includes(person.id),
     );
+
+    // If there are cards left to swipe
     if (cardsLeft.length) {
-      const toBeRemoved = cardsLeft[cardsLeft.length - 1].id; // Find the card object to be removed
-      const index = db.map(person => person.id).indexOf(toBeRemoved); // Find the index of which to make the reference to
-      alreadyRemoved.push(toBeRemoved); // Make sure the next card gets removed next time if this card do not have time to exit the screen
-      childRefs[index].current.swipe(dir); // Swipe the card!
+      // Identify the ID of the card to be removed
+      const toBeRemoved = cardsLeft[cardsLeft.length - 1].id;
+
+      // Find the index of the card to be removed in the original data (db) array
+      const index = db.map(person => person.id).indexOf(toBeRemoved);
+
+      // Add the ID of the card to alreadyRemoved to keep track of it
+      alreadyRemoved.push(toBeRemoved);
+
+      // Trigger the swipe action on the corresponding TinderCard using its ref
+      childRefs[index].current.swipe(dir);
     }
   };
 
